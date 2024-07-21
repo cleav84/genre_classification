@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - requests=2.24.0
+  - requests
   - pip
   - mlflow
   - hydra-core
