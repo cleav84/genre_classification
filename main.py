@@ -5,9 +5,18 @@ from omegaconf import DictConfig, OmegaConf
 
 
 # This automatically reads in the configuration
-@hydra.main(config_name='config')
+@hydra.main(config_name='config', config_name="config")
 def go(config: DictConfig):
+    print(config)  # Print the entire configuration to debug
+    if isinstance(config["main"]["execute_steps"], str):
+        # This was passed on the command line as a comma-separated list of steps
+        steps_to_execute = config["main"]["execute_steps"].split(",")
+    else:
+        assert isinstance(config["main"]["execute_steps"], list), "execute_steps is not a list"
+        steps_to_execute = config["main"]["execute_steps"]
 
+    print(steps_to_execute)  # Print the steps to debug
+    # Add your steps execution logic here
     # Setup the wandb experiment. All runs will be grouped under this name
     os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
     os.environ["WANDB_RUN_GROUP"] = config["main"]["experiment_name"]
