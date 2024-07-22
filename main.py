@@ -5,7 +5,7 @@ from omegaconf import DictConfig, OmegaConf
 
 
 # This automatically reads in the configuration
-@hydra.main(config_name='config', config_name="config")
+@hydra.main(config_path='config', config_name="config")
 def go(config: DictConfig):
     print(config)  # Print the entire configuration to debug
     if isinstance(config["main"]["execute_steps"], str):
